@@ -1,0 +1,223 @@
+<!--
+  ~
+  ~ Licensed to the Apache Software Foundation (ASF) under one or more
+  ~ contributor license agreements.  See the NOTICE file distributed with
+  ~ this work for additional information regarding copyright ownership.
+  ~ The ASF licenses this file to You under the Apache License, Version 2.0
+  ~ (the "License"); you may not use this file except in compliance with
+  ~ the License.  You may obtain a copy of the License at
+  ~
+  ~    http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.apache.crail</groupId>
+  <artifactId>crail-parent</artifactId>
+  <packaging>pom</packaging>
+  <version>1.3-incubating-SNAPSHOT</version>
+  <name>Crail Project Parent POM</name>
+  <url>http://maven.apache.org</url>
+
+  <parent>
+    <groupId>org.apache</groupId>
+    <artifactId>apache</artifactId>
+    <version>21</version>
+  </parent>
+
+  <scm>
+    <connection>scm:git:git://git.apache.org/incubator-crail.git</connection>
+    <developerConnection>scm:git:https://git-wip-us.apache.org/repos/asf/incubator-crail.git</developerConnection>
+    <url>https://git-wip-us.apache.org/repos/asf?p=incubator-crail.git</url>
+    <tag>HEAD</tag>
+  </scm>
+
+  <properties>
+    <build.copyDependenciesPhase>package</build.copyDependenciesPhase>
+    <hadoop.version>2.7.3</hadoop.version>
+  </properties>
+
+  <profiles>
+    <profile>
+      <id>hadoop-2.6</id>
+      <properties>
+        <hadoop.version>2.6.0</hadoop.version>
+      </properties>
+    </profile>
+    <profile>
+      <id>hadoop-2.7</id>
+      <properties>
+        <hadoop.version>2.7.3</hadoop.version>
+      </properties>
+    </profile>
+  </profiles>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>4.11</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>log4j</groupId>
+        <artifactId>log4j</artifactId>
+        <version>1.2.17</version>
+      </dependency>
+      <dependency>
+        <groupId>com.ibm.disni</groupId>
+        <artifactId>disni</artifactId>
+        <version>2.1</version>
+      </dependency>
+      <dependency>
+        <groupId>com.ibm.darpc</groupId>
+        <artifactId>darpc</artifactId>
+        <version>1.9</version>
+      </dependency>
+      <dependency>
+        <groupId>com.ibm.narpc</groupId>
+        <artifactId>narpc</artifactId>
+        <version>1.5</version>
+			</dependency>
+      <dependency>
+        <groupId>com.ibm.jnvmf</groupId>
+        <artifactId>jnvmf</artifactId>
+        <version>1.6</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.hadoop</groupId>
+        <artifactId>hadoop-common</artifactId>
+        <version>${hadoop.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>commons-cli</groupId>
+        <artifactId>commons-cli</artifactId>
+        <version>1.3.1</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.hadoop</groupId>
+        <artifactId>hadoop-common-test</artifactId>
+        <version>0.22.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-log4j12</artifactId>
+        <version>1.7.12</version>
+      </dependency>
+<!--      <dependency>-->
+<!--        <groupId>com.googlecode.xmemcached</groupId>-->
+<!--        <artifactId>xmemcached</artifactId>-->
+<!--        <version>2.4.6</version>-->
+<!--      </dependency>-->
+<!--      <dependency>-->
+<!--        <groupId>jdk.tools</groupId>-->
+<!--        <artifactId>jdk.tools</artifactId>-->
+<!--        <version>1.8</version>-->
+<!--        <scope>system</scope>-->
+<!--        <systemPath>${JAVA_HOME}/lib/tools.jar</systemPath>-->
+<!--      </dependency>-->
+<!--      <dependency>-->
+<!--        <groupId>net.openhft</groupId>-->
+<!--        <artifactId>Java-Thread-Affinity</artifactId>-->
+<!--        <version>3.21ea84-SNAPSHOT</version>-->
+<!--      </dependency>-->
+    </dependencies>
+  </dependencyManagement>
+
+  <build>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>false</filtering>
+      </resource>
+      <resource>
+        <directory>${maven.multiModuleProjectDirectory}</directory>
+        <targetPath>META-INF/</targetPath>
+        <filtering>false</filtering>
+        <includes>
+          <include>NOTICE</include>
+          <include>LICENSE</include>
+          <include>LICENSE-binary</include>
+          <include>DISCLAIMER</include>
+          <include>CREDITS</include>
+        </includes>
+      </resource>
+      <resource>
+        <directory>${maven.multiModuleProjectDirectory}/licenses</directory>
+        <targetPath>META-INF/licenses/</targetPath>
+      </resource>
+    </resources>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.rat</groupId>
+        <artifactId>apache-rat-plugin</artifactId>
+        <version>0.12</version>
+        <configuration>
+          <licenses>
+            <license implementation="org.apache.rat.analysis.license.SimplePatternBasedLicense">
+              <licenseFamilyCategory>AL20</licenseFamilyCategory>
+                <licenseFamilyName>Apache License, 2.0</licenseFamilyName>
+              </license>
+            </licenses>
+            <excludes>
+              <exclude>conf/**/*</exclude>
+              <exclude>docker/crail-site.conf</exclude>
+              <exclude>docker/RDMA/crail-site.conf</exclude>
+              <exclude>CREDITS</exclude>
+              <exclude>licenses/LICENSE.*</exclude>
+            </excludes>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>3.0.0</version>
+        <executions>
+          <execution>
+            <configuration>
+              <configLocation>checkstyle.xml</configLocation>
+              <encoding>UTF-8</encoding>
+              <consoleOutput>false</consoleOutput>
+              <failsOnError>true</failsOnError>
+              <linkXRef>false</linkXRef>
+            </configuration>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>source-release-assembly</id>
+            <phase>none</phase>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+  <modules>
+    <module>client</module>
+    <module>namenode</module>
+    <module>storage</module>
+    <module>storage-rdma</module>
+    <module>storage-nvmf</module>
+    <module>storage-narpc</module>
+    <module>rpc</module>
+    <module>rpc-darpc</module>
+    <module>rpc-narpc</module>
+    <module>hdfs</module>
+    <module>assembly</module>
+<!--    <module>thread-affinity</module>-->
+  </modules>
+
+</project>

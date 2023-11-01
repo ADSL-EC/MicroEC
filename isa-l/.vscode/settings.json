@@ -1,0 +1,13 @@
+{
+    "files.associations": {
+        "bitset": "c",
+        "test_libec.h": "c",
+        "sched.h": "c",
+        "string.h": "c",
+        "isa-l.h": "c",
+        "erasure_code.h": "c",
+        "gf_vect_mul.h": "c",
+        "cstring": "c",
+        "ec_base_vsx.h": "c"
+    }
+}
