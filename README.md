@@ -6,6 +6,19 @@ To enable efficient EC in DM, we thoroughly analyze the coding stack from the pe
 We implement a prototype supporting common basic operations, such as write/read/degraded read/recovery. Experiments show that MicroEC reduces the write latency by up to 44.35% and 42.14% and achieves up to 1.80x and 1.73x write throughput, compared with the state-of-the-art DM systems with EC and 3-way replication for objects not smaller than 1MB, respectively.
 For small objects, MicroEC also evidently reduces the variation of latency, e.g., it reduces the P99 latency of writing 1KB objects by 27.81%.
 
+If you utilize MicroEC in your work or research, please kindly inform us. The regular version is published in IEEE Transactions on Parallel and Distributed Systems. We also encourage you to reference our paper, and here is the BibTeX citation.
+```bib
+@ARTICLE{10319328,
+  author={Li, Qiliang and Xu, Liangliang and Li, Yongkun and Lyu, Min and Wang, Wei and Zuo, Pengfei and Xu, Yinlong},
+  journal={IEEE Transactions on Parallel and Distributed Systems}, 
+  title={Enabling Efficient Erasure Coding in Disaggregated Memory Systems}, 
+  year={2023},
+  volume={},
+  number={},
+  pages={1-15},
+  doi={10.1109/TPDS.2023.3332782}}
+```
+
 ### 2. Overview
 * MicroEC prototype is written in Java based on [Crail-1.3](https://github.com/apache/incubator-crail)
 * MicroEC coding library is written in C based on [ISA-L](https://github.com/intel/isa-l)
